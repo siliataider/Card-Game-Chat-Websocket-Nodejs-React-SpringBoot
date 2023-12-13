@@ -1,30 +1,61 @@
 const socket = io()
 console.log(socket)
 
+let opponentSocketId = null;
 
-fetch('/get-sockets')
-    .then(response => response.json())
-    .then(sockets => {
+socket.on('socketListUpdate', (sockets) => {
+    
+    if (document.getElementById('socketList')) {
         const listElement = document.getElementById('socketList');
+        listElement.innerHTML = '';
+        
         sockets.forEach(socketId => {
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = `chat.html?socketId=${socketId}`;
-            link.textContent = `Socket ${socketId}`;
-            listItem.appendChild(link);
-            listElement.appendChild(listItem);
+            if (socketId !== socket.id) { 
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = `chat.html?socketId=${socketId}`;
+                link.textContent = `Socket ${socketId}`;
+                listItem.appendChild(link);
+                listElement.appendChild(listItem);
+            }
         });
-    });
-
-
-document.getElementById('socketList').addEventListener('click', (event) => {
-    if (event.target.tagName === 'A') {
-        event.preventDefault();
-        window.location.href = event.target.href;
-        const urlParams = new URLSearchParams(window.location.search);
-        const opponentSocketId = urlParams.get('socketId');
-        console.log(`I chose the user with the id: ${opponentSocketId}`)
     }
+});
+
+if (document.getElementById('socketList')) {
+    document.getElementById('socketList').addEventListener('click', (event) => {
+        if (event.target.tagName === 'A') {
+            event.preventDefault();
+            const href_ = event.target.href;
+            const url = new URL(href_);
+            opponentSocketId = url.searchParams.get('socketId');
+            console.log(`Sending a request to: ${opponentSocketId}`)
+
+            data = {
+                from: socket.id,
+                to: opponentSocketId
+            }
+            socket.emit('initiateChat', data);
+        }
+    });
+}
+
+socket.on('chatRequest', (data) => {
+    console.log(`Receiving a request from: ${data.from}`) 
+    if (confirm(`Socket ${data.from} wants to chat with you 😏 Do you accept?`)) {
+        opponentSocketId = data.from;
+        socket.emit('confirmChat', {
+            from: opponentSocketId,
+            to: socket.id
+        });
+    }
+    else{
+        console.log("Nah not interested")
+    }
+});
+
+socket.on('gameStart', () => {
+    window.location.href = 'chat.html';
 });
 
 

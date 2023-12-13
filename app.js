@@ -11,10 +11,6 @@ const socketController = new SocketController(io);
 
 app.use(express.static(path.join(__dirname,'public')))
 
-app.get('/get-sockets', (req, res) => {
-    res.json(socketController.getAllSockets_test());
-});
-
 /*
 app.get('/get-sockets', (req, res) => {
     const sockets = [1, 2, 3, 4, 5];

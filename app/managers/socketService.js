@@ -1,25 +1,21 @@
 class SocketService {
-    constructor() {
+    constructor(io) {
+        this.io = io;
         this.sockets = new Set();
     }
 
-    addSocket(socket) {
-        this.sockets.add(socket);
-        console.log(`Socket connecté: ${socket.id}`);
-        console.log(`Total connectés: ${this.sockets.size}`);
+    addSocket(socketId) {
+        this.sockets.add(socketId);
+        this.emitUpdatedSocketList();
     }
 
-    removeSocket(socket) {
-        this.sockets.delete(socket);
-        console.log(`Socket déconnecté: ${socket.id}`);
+    removeSocket(socketId) {
+        this.sockets.delete(socketId);
+        this.emitUpdatedSocketList();
     }
 
-    getAllSockets() {
-        return Array.from(this.sockets);
-    }
-
-    getAllSockets_test() {
-        return [0, 1, 2, 3, 4, 5];
+    emitUpdatedSocketList() {
+        this.io.sockets.emit('socketListUpdate', Array.from(this.sockets));
     }
 }
 

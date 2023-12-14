@@ -1,9 +1,11 @@
-const SocketService = require('./socketService');
+const SocketService = require('../services/socketService');
+const ChatService = require('../services/ChatService')
 
 class SocketController {
     constructor(io) {
         this.io = io;
         this.socketService = new SocketService(this.io);
+        this.chatService = new ChatService(this.io);
         this.setupSocketListeners();
     }
 
@@ -20,8 +22,14 @@ class SocketController {
             });
 
             socket.on('confirmChat', (data) => {
-                this.socketService.startGame(data)
+                this.socketService.startGame(data);
             });
+
+            socket.on('message-sent', (data) => {
+                console.log("i notified the chat service");
+                this.chatService.sendMessage(data);
+               
+            })
             
         });
     }

@@ -54,7 +54,7 @@ socket.on('chatRequest', (data) => {
     }
 });
 
-socket.on('gameStart', () => {
+socket.on('startGame', () => {
     window.location.href = 'chat.html';
 });
 

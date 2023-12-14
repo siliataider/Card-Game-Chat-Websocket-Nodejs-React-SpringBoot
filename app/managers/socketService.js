@@ -17,6 +17,15 @@ class SocketService {
     emitUpdatedSocketList() {
         this.io.sockets.emit('socketListUpdate', Array.from(this.sockets));
     }
+
+    sendChatRequest(data){
+        this.io.to(data.to).emit('chatRequest', data);
+    }
+
+    startGame(data){
+        this.io.to(data.from).emit('startGame');
+        this.io.to(data.to).emit('startGame');
+    }
 }
 
 module.exports = SocketService;

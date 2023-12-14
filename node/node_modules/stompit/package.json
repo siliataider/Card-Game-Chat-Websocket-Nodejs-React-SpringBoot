@@ -1,0 +1,32 @@
+{
+  "name": "stompit",
+  "description": "STOMP client library for node.js",
+  "version": "1.0.0",
+  "keywords": [
+    "stomp",
+    "messaging",
+    "activemq",
+    "rabbitmq"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gdaws/node-stomp.git"
+  },
+  "engines": {
+    "node": ">=8.6.0"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "qs": "~6.9.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.10.2",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
+  },
+  "scripts": {
+    "test": "mocha --recursive --exit && jshint .",
+    "coverage": "nyc npm t"
+  }
+}

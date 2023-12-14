@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS `USERMODEL`;
+CREATE TABLE `USERMODEL` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `login` VARCHAR(50) DEFAULT NULL,
+    `pwd` VARCHAR(50) DEFAULT NULL,
+    `account` FLOAT,
+    `lastName` VARCHAR(100) DEFAULT NULL,
+    `surName` VARCHAR(100) DEFAULT NULL,
+    `email` VARCHAR(100) DEFAULT NULL,
+
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `CARDMODEL` (
+	`id`  bigint(20) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) DEFAULT NULL,
+	`description` VARCHAR(500) DEFAULT NULL,
+	`family` VARCHAR(100) DEFAULT NULL,
+	`affinity` VARCHAR(100) DEFAULT NULL,
+	`imgUrl` VARCHAR(200) DEFAULT NULL,
+	`smallImgUrl` VARCHAR(200) DEFAULT NULL,
+	`energy` FLOAT,
+	`hp` FLOAT,
+	`defence` FLOAT,
+	`attack` FLOAT,
+	`price` FLOAT,
+	PRIMARY KEY (`id`)
+);

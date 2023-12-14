@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "name": "Iron Man",
+    "image": "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
+    "description": "Genius, billionaire, playboy, and philanthropist. Tony Stark suits up as Iron Man to protect the world from threats.",
+    "hp": 100,
+    "energy": 80,
+    "attack": 95,
+    "defense": 75,
+    "price": 150
+  },
+  {
+    "id": 2,
+    "name": "Captain America",
+    "image": "https://www.pause-canap.com/media/wysiwyg/captain-america-2-scaled.jpg",
+    "description": "Steve Rogers, a super-soldier with enhanced strength, agility, and an unbreakable shield. Fights for justice and freedom.",
+    "hp": 120,
+    "energy": 70,
+    "attack": 85,
+    "defense": 90,
+    "price": 130
+  },
+  {
+    "id": 3,
+    "name": "Black Widow",
+    "image": "https://www.tomsguide.fr/content/uploads/sites/2/2021/07/black-widow-60e30f229c14c-1024x684.jpg",
+    "description": "Natasha Romanoff, a skilled spy and assassin. Known for her agility, martial arts, and espionage expertise.",
+    "hp": 80,
+    "energy": 90,
+    "attack": 75,
+    "defense": 80,
+    "price": 120
+  },
+  {
+    "id": 4,
+    "name": "Thor",
+    "image": "https://www.syfy.com/sites/syfy/files/2021/04/film-review-thor-2011.jpg",
+    "description": "The God of Thunder, Thor wields Mjolnir and commands the power of lightning. Protector of Asgard and Earth.",
+    "hp": 150,
+    "energy": 100,
+    "attack": 110,
+    "defense": 100,
+    "price": 180
+  },
+  {
+    "id": 5,
+    "name": "Hulk",
+    "image": "https://cdn.britannica.com/64/182864-050-8975B127/Scene-The-Incredible-Hulk-Louis-Leterrier.jpg",
+    "description": "Bruce Banner transforms into the Hulk, a giant green powerhouse with immense strength and durability.",
+    "hp": 200,
+    "energy": 50,
+    "attack": 130,
+    "defense": 120,
+    "price": 200
+  },
+  {
+    "id": 6,
+    "name": "Black Panther",
+    "image": "https://i.pinimg.com/736x/26/8f/52/268f52c4ed0873fb6bf95db1d5cd5d88.jpg",
+    "description": "T'Challa, the king of Wakanda, possesses enhanced strength, speed, and agility. Wields the Black Panther suit.",
+    "hp": 110,
+    "energy": 85,
+    "attack": 95,
+    "defense": 110,
+    "price": 160
+  },
+  {
+    "id": 7,
+    "name": "Doctor Strange",
+    "image": "https://media.npr.org/assets/img/2016/10/26/cm-ss-00542_rs_20_wide-95bb985d74d2b45152d581f896ff6bb14a6e4e5a.jpg",
+    "description": "Stephen Strange, a former neurosurgeon, now the Sorcerer Supreme. Masters the mystic arts to protect reality.",
+    "hp": 90,
+    "energy": 120,
+    "attack": 100,
+    "defense": 90,
+    "price": 140
+  },
+  {
+    "id": 8,
+    "name": "Spider-Man",
+    "image": "https://cdn-uploads.gameblog.fr/img/news/425341_645e546f4ddec.jpg",
+    "description": "Peter Parker, a friendly neighborhood superhero with enhanced agility, spider-sense, and web-slinging abilities.",
+    "hp": 95,
+    "energy": 95,
+    "attack": 80,
+    "defense": 85,
+    "price": 110
+  },
+  {
+    "id": 9,
+    "name": "Scarlet Witch",
+    "image": "https://i0.wp.com/www.murphysmultiverse.com/wp-content/uploads/2022/12/scarletwitchdead.jpg?fit=1024%2C576&ssl=1",
+    "description": "Wanda Maximoff, with reality-warping powers. A powerful and mystical force in the Marvel Universe.",
+    "hp": 130,
+    "energy": 110,
+    "attack": 120,
+    "defense": 95,
+    "price": 170
+  },
+  {
+    "id": 10,
+    "name": "Ant-Man",
+    "image": "https://media.comicbook.com/2015/12/ant-man-growing-163739.jpg",
+    "description": "Scott Lang, a skilled thief with the ability to shrink and control ants. Uses the Ant-Man suit for heroics.",
+    "hp": 85,
+    "energy": 75,
+    "attack": 70,
+    "defense": 80,
+    "price": 100
+  }
+]

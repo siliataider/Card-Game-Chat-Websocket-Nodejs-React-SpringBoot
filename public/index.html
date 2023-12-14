@@ -8,10 +8,49 @@
     <title>💬 G5Chat</title>
 </head>
 <body>
-    <h1 class="title">Connected Sockets</h1>
-    <ul id="socketList">
-        
-    </ul>
+    <div id="elem1">
+        <h1 class="title">Connected Sockets</h1>
+        <ul id="socketList">
+        </ul>
+    </div>
+
+    <div id="elem2" hidden>
+        <h1 class="title">Welcome to G5Chat 💬</h1>
+            <div class="main">
+                <div class="name">
+                    <span><i class="far fa-user"></i></span>
+                    <input 
+                        type="text" 
+                        id="name-input" 
+                        class="name-input" 
+                        value="Anonyme" 
+                        maxlength="20"
+                    >
+                </div>
+                <ul class="message-container" id="message-container">
+                    <li class="message-left">
+                        <p class="message">
+                            lorem ipsum
+                        </p>
+                    </li>
+                    <li class="message-right">
+                        <p class="message">
+                            lorem ipsum
+                        </p>
+                    </li>
+                </ul>
+                <form class="message-form" id="message-form">
+                    <input type="text" name="message" id="message-input" class="message-input" placeholder="Ecrire votre message ici...">
+                    <div class="divider"></div>
+                    <button type="submit" class="send-button">
+                        Send <span><i class="fas fa-paper-plane"></i></span>
+                    </button>
+                </form>
+                <h3 class="connected-total" id="connected-total">
+                    Participants: 0
+                </h3>
+            </div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>

@@ -1,14 +1,15 @@
 import Message from "../models/Message";
 
 class ChatService {
-    constructor({}) {
+    constructor(io) {
+        this.io = io;
         console.log(`new ChatService`);
     }
 
     sendMessage(message) {
         console.log(`a message was sent: ${message.message}`)
-        io.emit('message-received', message)
+        io.to(message.receiverId).emit('message-received', message.message)
     }
 }
 
-export default new ChatService({});
+export default ChatService;

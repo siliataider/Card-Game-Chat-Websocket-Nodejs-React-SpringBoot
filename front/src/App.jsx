@@ -10,6 +10,7 @@ import { loadCards } from './slices/shopSlice';
 import { logout } from './slices/authSlice';
 import './App.css'
 import config from '../config';
+import {io} from 'socket.io-client';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const cards = useSelector((state) => state.shop.cards);
   const [loadShopOrInv, setShopOrInv] = useState(false);
+
+  useEffect(() => {
+      const socket = io()
+  }, []);
 
   const handleLoginClick = () => {
       setShowLogin(true);

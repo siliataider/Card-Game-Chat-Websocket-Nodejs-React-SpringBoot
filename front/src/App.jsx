@@ -1,15 +1,18 @@
 import { useState, useEffect  } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import LoginForm from './components/Forms/LoginForm'
-import SignupForm from './components/Forms/SignupForm'
 import Shop from './components/Shop/Shop'
 import Inventory from './components/Inventory/Inventory'
 import Card from './components/Card/Card'
+import FormDisplay from './pages/FormDisplay'
+import InventoryDisplay from './pages/InventoryDisplay'
 import * as jsonSource from './sources/cards.json';
 import { loadCards } from './slices/shopSlice';
 import { logout } from './slices/authSlice';
 import './App.css'
 import config from '../config';
+import { BrowserRouter,Routes,Route,NavLink} from "react-router-dom";
+import { Grid, Segment, Menu } from 'semantic-ui-react';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -21,17 +24,15 @@ function App() {
   const cards = useSelector((state) => state.shop.cards);
   const [loadShopOrInv, setShopOrInv] = useState(false);
 
-  const handleLoginClick = () => {
-      setShowLogin(true);
-      setShowSignup(false);
-      setShowButtons(false);
-    };
 
-  const handleSignupClick = () => {
-      setShowLogin(false);
-      setShowSignup(true);
-      setShowButtons(false);
-    };
+ const verifyLogin = () => {
+    console.log(isLoggedIn);
+
+    if(isLoggedIn){
+        return <InventoryDisplay/>;
+    }
+    return <FormDisplay/>;
+ }
 
  const handleGoBack = () => {
      setShowLogin(false);
@@ -74,11 +75,28 @@ function App() {
 
   
   return (
-    <>   
-          <h1>Welcome to G5's Card Shop!</h1>
-          <p className="read-the-docs">
-            Create your account and discover our endless inventory!
-          </p>
+    <>
+          <BrowserRouter>
+                <div>
+                  <Routes>
+                      <Route path='/' element={verifyLogin()} />
+                      <Route path='/signup' element={<FormDisplay/>} />
+                      <Route path='/login' element={<FormDisplay/>} />
+                      <Route path='/inventory' element={<InventoryDisplay/>} />
+                      <Route path ='/shop' element = {<ShopDisplay/>}/>
+
+                  </Routes>
+                </div>
+          </BrowserRouter>
+    </>
+
+
+  )
+}
+
+export default App;
+
+{/*
           <div className="main">
            {showButtons && (
            <>
@@ -125,11 +143,7 @@ function App() {
                 ? <button onClick={handleLoadInventory}>Shop</button>
                 : <button onClick={handleLoadInventory}>Inventory</button>
               }
-            
+
             </div>
           )}
-        </>
-  )
-}
-
-export default App
+        */}

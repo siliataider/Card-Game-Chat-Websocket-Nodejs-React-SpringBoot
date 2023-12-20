@@ -7,9 +7,11 @@ import { io } from "socket.io-client";
 
 
 function App() {
+
+  const socket = io()
   
   return (
-      <RoomBody></RoomBody>
+      <ChatBody socket = {socket} ></ChatBody>
 
   )
 }

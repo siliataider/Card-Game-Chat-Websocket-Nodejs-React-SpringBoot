@@ -28,9 +28,9 @@ public class CardRestController {
 	public CardRestController(CardModelService cardModelService) {
 		this.cardModelService=cardModelService;
 	}
-	
+
 	@RequestMapping(method=RequestMethod.GET, value="/cards")
-	private List<CardDTO> getAllCards() {
+	public List<CardDTO> getAllCards() {
 		List<CardDTO> cLightList=new ArrayList<>();
 		for(CardModel c:cardModelService.getAllCardModel()){
 			cLightList.add(new CardDTO(c));

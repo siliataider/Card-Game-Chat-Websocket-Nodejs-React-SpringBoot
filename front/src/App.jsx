@@ -15,7 +15,7 @@ import SocketContext from './SocketContext';
 import OpponentSelectionDisplay from './pages/OpponentSelectionDisplay'
 import CardDeck from './components/CardDeck/CardDeck';
 import { setOtherUsers } from './slices/gameSlice'
-
+import GameArena from './components/Game/GameArena'
 
 function App() {
   const dispatch = useDispatch();
@@ -132,6 +132,7 @@ function App() {
                       <Route path='/inventory' element={<InventoryDisplay/>} />
                       <Route path='/opponents' element={<OpponentSelectionDisplay/>} />
                       <Route path='/cardDeck' element={<CardDeck/>} />
+                      <Route path='/arena' element={<GameArena/>} />
                   </Routes>
                 </div>
           </BrowserRouter>          

@@ -15,10 +15,11 @@ const OpponentList = () => {
   const navigate = useNavigate();
   const currentUserSocketId = useSelector((state) => state.auth.currentUserSocketId);
   const currentUserId = useSelector((state) => state.auth.currentUserId);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (socket) {
-      socket.on('socketListUpdate', (users) => {
+      socket.on('startGame', (users) => {
         const otherUsers = users.filter(userId => userId !== socket.id);
         //setConnectedUsers(otherUsers);
         dispatch(setOtherUsers(otherUsers));

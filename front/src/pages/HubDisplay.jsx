@@ -23,13 +23,19 @@ const handleClickShop = () => {
     navigate('/shop');
 }
 
+const handleClickMatch = () => {
+    navigate('/match');
+}
+
 return(
 <>
     <h1>Where would you like to go?</h1>
     <div>
        <button onClick={handleClickShop}>Shop</button>
-       <button onClick={handleGoBack}>Go back</button>
+       <button onClick={handleClickMatch}>Matchmaking</button>
        <button onClick={handleClickInventory}>Inventory</button>
+       <br></br>
+       <button onClick={handleGoBack}>Go back</button>
     </div>
 </>
 )

@@ -4,8 +4,7 @@ import { loginSuccess } from '../slices/authSlice';
 import config from '../../config';
 import LoginForm from '../components/Forms/LoginForm'
 import SignupForm from '../components/Forms/SignupForm'
-import { logout } from '../slices/authSlice';
-
+import logout from '../slices/authSlice';
 
 
 const FormDisplay = () => {
@@ -32,7 +31,9 @@ const FormDisplay = () => {
          setShowLogin(false);
          setShowSignup(false);
          setShowButtons(true);
+
          dispatch(logout());
+
        };
 
     return (
@@ -60,7 +61,7 @@ const FormDisplay = () => {
             <div>
               <LoginForm/>
               <br></br>
-              <button onClick={handleGoBack}>Go Back</button>
+              <button onClick={handleGoBack}>Goooooo Back</button>
             </div>
           )}
 
@@ -68,7 +69,7 @@ const FormDisplay = () => {
             <div>
               <SignupForm/>
               <br></br>
-              <button onClick={handleGoBack}>Go Back</button>
+              <button onClick={handleGoBack}>Gooooooo Back</button>
             </div>
           )}
 

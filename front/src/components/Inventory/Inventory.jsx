@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Card from '../Card/Card';
 import config from '../../../config';
 import { setUserCards } from '../../slices/authSlice';
+import { getUserCards } from '../../assets/utility'
 
 const Inventory = () => {
   const dispatch = useDispatch();
   const userCards = useSelector((state) => state.auth.userCards); 
   const currentUserId = useSelector((state) => state.auth.currentUserId);
 
-  const getUserCards = async () => {
+  /*const getUserCards = async () => {
     try {
       const response = await fetch(`${config.BASE_URL}/user/${currentUserId}`);
       if (!response.ok) {
@@ -31,15 +32,15 @@ const Inventory = () => {
     } catch (error) {
       console.error('Erreur lors de la récupération des données GET:', error);
     }
-  };
+  };*/
 
   useEffect(() => {
     if (currentUserId) {
-      getUserCards();
+      getUserCards(dispatch, currentUserId);
     }
   }, [currentUserId, dispatch]);
   
-  const getCards = async (cardId) => {
+  /*const getCards = async (cardId) => {
     try {
       const response = await fetch(`${config.BASE_URL}/card/${cardId}`);
       if (!response.ok) {
@@ -51,7 +52,7 @@ const Inventory = () => {
     } catch (error) {
       console.error('Erreur lors de la récupération des données GET:', error);
     }
-  };
+  };*/
 
 
   const handleSellClick = async (currentCard) => {

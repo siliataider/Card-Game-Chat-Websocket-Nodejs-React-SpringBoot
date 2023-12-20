@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedCards } from '../../slices/gameSlice';
 import Card from '../Card/Card';
+import { getUserCards } from '../../assets/utility'
+
 
 
 const CardDeck = ({ onStartGame }) => {
     const dispatch = useDispatch();
     const userCards = useSelector((state) => state.auth.userCards); 
     const selectedCards = useSelector((state) => state.game.selectedCards);
+    const currentUserId = useSelector((state) => state.auth.currentUserId);
+
+    useEffect(() => {
+        if (currentUserId) {
+          getUserCards(dispatch, currentUserId);
+        }
+    }, [currentUserId, dispatch]);
+
 
     const toggleCardSelection = (card) => {
         let updatedSelectedCards;

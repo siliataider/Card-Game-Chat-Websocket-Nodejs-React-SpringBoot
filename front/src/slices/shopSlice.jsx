@@ -9,11 +9,9 @@ export const shopSlice = createSlice({
   reducers: {
     setCurrentCard: (state, action) => {
       state.currentCard = action.payload;
-      console.log('setCurrentCard reducer')
     },
     loadCards: (state, action) => {
       state.cards = action.payload;
-      console.log('loadCards reducer', state.cards)
     },
   },
 });

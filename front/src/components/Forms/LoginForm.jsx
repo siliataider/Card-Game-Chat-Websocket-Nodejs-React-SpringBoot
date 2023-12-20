@@ -27,7 +27,6 @@ const LoginForm = () => {
       }
 
       const userId = await response.json();
-      console.log("User ID: ", userId);
       dispatch(loginSuccess(userId));
       navigate('/');
 
@@ -45,7 +44,6 @@ const LoginForm = () => {
         username: username_input,
         password: password_input
       };
-      console.log('Logging in with:', data);
       logUser(data);
 
     } else {

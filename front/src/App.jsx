@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Shop from './components/Shop/Shop'
 import Inventory from './components/Inventory/Inventory'
 import Card from './components/Card/Card'
+import HubDisplay from './pages/HubDisplay'
 import FormDisplay from './pages/FormDisplay'
 import InventoryDisplay from './pages/InventoryDisplay'
+import ShopDisplay from './pages/ShopDisplay'
 import * as jsonSource from './sources/cards.json';
 import { loadCards } from './slices/shopSlice';
 import { logout } from './slices/authSlice';
@@ -36,17 +38,10 @@ function App() {
     console.log(isLoggedIn);
 
     if(isLoggedIn){
-        return <InventoryDisplay/>;
+        return <HubDisplay/>;
     }
     return <FormDisplay/>;
  }
-
- const handleGoBack = () => {
-     setShowLogin(false);
-     setShowSignup(false);
-     setShowButtons(true);
-     dispatch(logout());
-   };
 
   const handleLoginSuccess = () => {
     setShowLogin(false);
@@ -112,10 +107,12 @@ function App() {
                       <Route path='/signup' element={<FormDisplay/>} />
                       <Route path='/login' element={<FormDisplay/>} />
                       <Route path='/inventory' element={<InventoryDisplay/>} />
+                      <Route path='/shop' element={<ShopDisplay/>} />
 
                   </Routes>
                 </div>
           </BrowserRouter>
+
     </>
 
 

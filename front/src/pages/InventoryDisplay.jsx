@@ -17,7 +17,7 @@ const handleClickShop = () => {
 }
 
 const handleGoBack = () => {
-    navigate('/login');
+    navigate('/');
 }
 
 return(

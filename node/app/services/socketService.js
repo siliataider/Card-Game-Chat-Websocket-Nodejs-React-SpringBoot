@@ -7,6 +7,7 @@ class SocketService {
     addSocket(socketId) {
         this.sockets.add(socketId);
         this.emitUpdatedSocketList();
+        console.log("addsocket")
     }
 
     removeSocket(socketId) {
@@ -16,15 +17,17 @@ class SocketService {
 
     emitUpdatedSocketList() {
         this.io.sockets.emit('socketListUpdate', Array.from(this.sockets));
+        console.log("+++++++++++++ emitted: ", Array.from(this.sockets))
     }
 
     sendChatRequest(data){
-        this.io.to(data.to).emit('chatRequest', data);
+        this.io.to(data.toSocketID).emit('chatRequest', data);
+        console.log("++++++++++++++++++sending chat request to ", data.toSocketID)
     }
 
     startGame(data){
-        this.io.to(data.from).emit('startGame');
-        this.io.to(data.to).emit('startGame');
+        this.io.to(data.fromSocketID).emit('startGame');
+        this.io.to(data.toSocketID).emit('startGame');
     }
 }
 

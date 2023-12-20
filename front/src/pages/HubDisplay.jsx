@@ -9,36 +9,38 @@ import { logout } from '../slices/authSlice';
 
 const HubDisplay = () => {
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
 
-const handleGoBack = () => {
-    navigate('/login');
-}
+    const handleGoBack = () => {
+        navigate('/login');
+        dispatch(logout());
+    }
 
-const handleClickInventory = () => {
-    navigate('/inventory')
-}
+    const handleClickInventory = () => {
+        navigate('/inventory')
+    }
 
-const handleClickShop = () => {
-    navigate('/shop');
-}
+    const handleClickShop = () => {
+        navigate('/shop');
+    }
 
-const handleClickMatch = () => {
-    navigate('/opponents');
-}
+    const handleClickMatch = () => {
+        navigate('/opponents');
+    }
 
-return(
-<>
-    <h1>Where would you like to go?</h1>
-    <div>
-       <button onClick={handleClickShop}>Shop</button>
-       <button onClick={handleClickMatch}>Matchmaking</button>
-       <button onClick={handleClickInventory}>Inventory</button>
-       <br></br>
-       <button onClick={handleGoBack}>Go back</button>
-    </div>
-</>
-)
+    return(
+    <>
+        <h1>Where would you like to go?</h1>
+        <div>
+        <button onClick={handleClickShop}>Shop</button>
+        <button onClick={handleClickMatch}>Matchmaking</button>
+        <button onClick={handleClickInventory}>Inventory</button>
+        <br></br>
+        <button onClick={handleGoBack}>GoOoOoOO back</button>
+        </div>
+    </>
+    )
 
 }
 

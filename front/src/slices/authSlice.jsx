@@ -5,6 +5,7 @@ export const authSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     currentUserId: null,
+    currentUserSocketId: null,
     userCards: [],
   },
   reducers: {
@@ -13,17 +14,20 @@ export const authSlice = createSlice({
       state.currentUserId = action.payload;
       console.log('loginSucess reducer')
     },
-    logout: (state) => {
+    logout: (state, action) => {
       state.isLoggedIn = false;
       state.currentUserId = null;
       console.log('logout reducer')
     },
     setUserCards: (state, action) => {
       state.userCards = action.payload;
+    },
+    setCurrentUserSockerId: (state, action) => {
+      state.currentUserSocketId = action.payload;
     }
   },
 });
 
-export const { loginSuccess, logout, setUserCards } = authSlice.actions;
+export const { loginSuccess, logout, setUserCards, setCurrentUserSockerId } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -15,13 +15,17 @@ class SocketController {
 
     setupSocketListeners() {
         this.io.on('connection', (socket) => {
+            console.log("+++++++++connected")
             this.socketService.addSocket(socket.id);
             this.userService.getAllUsers();
             socket.on('disconnect', () => {
                 this.socketService.removeSocket(socket.id);
+                console.log("+++++++++++isconnected")
             });
 
             socket.on('initiateChat', (data) => {
+                console.log("+++++++++++++++++++++++ chat initiated")
+                console.log(data)
                 this.socketService.sendChatRequest(data);
             });
 
@@ -41,6 +45,11 @@ class SocketController {
             })
             socket.on('select-opponent-card', (data) => {
                 this.combatService.combat(data);
+            })
+
+            socket.on('getotherUsers', ()  => {
+                console.log("+++++++++++++++++++getotherUsers")
+                this.socketService.emitUpdatedSocketList();
             })
             
         });

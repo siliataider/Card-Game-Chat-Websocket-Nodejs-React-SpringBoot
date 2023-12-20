@@ -32,7 +32,6 @@ class SocketController {
             socket.on('message-sent', (data) => {
                 console.log("i notified the chat service");
                 this.chatService.sendMessage(data);
-               
             })
             socket.on('end-turn', (data) => {
                 this.combatService.endTurn(data);

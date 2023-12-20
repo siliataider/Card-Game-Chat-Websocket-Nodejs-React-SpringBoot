@@ -7,6 +7,7 @@ class ChatService {
     sendMessage(data) {
         console.log(`a message was sent: ${data.message}`)
         this.io.to(data.receiverId).emit('message-received', data)
+        this.io.emit('message-received', data)
     }
 }
 

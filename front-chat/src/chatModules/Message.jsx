@@ -1,10 +1,11 @@
 const Message = (props) => {
 
+    console.log("ERGKHJN")
     return (
         <>
-            <p>Sender :</p>
-            <p>Content message</p>
-            <p>27/02/2000 10H</p>
+            <p>From : {props.messageObject.senderId}</p>
+            <p>{props.messageObject.message}</p>
+            <p>{props.messageObject.time}</p>
 
         </>
     )

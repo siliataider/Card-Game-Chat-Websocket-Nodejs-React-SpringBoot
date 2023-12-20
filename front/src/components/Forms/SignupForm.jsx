@@ -2,6 +2,7 @@ import { useState, useEffect  } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../slices/authSlice';
 import config from '../../../config';
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const [new_username, setNewUsername] = useState('');
@@ -11,6 +12,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const createUser = async (data) => {
     try {
@@ -43,6 +45,7 @@ const SignupForm = () => {
 
       const userId = await loginResponse.json();
       dispatch(loginSuccess(userId));
+      navigate('/');
 
     } catch (error) {
       console.error('Error during POST request:', error);

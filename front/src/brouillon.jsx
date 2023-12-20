@@ -1,20 +1,17 @@
-import { useState, useEffect, useMemo  } from 'react'
+import { useState, useEffect  } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-
-import FormDisplay from './pages/FormDisplay'
-import InventoryDisplay from './pages/InventoryDisplay'
-import ShopDisplay from './pages/ShopDisplay'
-
+import LoginForm from './components/Forms/LoginForm'
+import SignupForm from './components/Forms/SignupForm'
+import Shop from './components/Shop/Shop'
+import Inventory from './components/Inventory/Inventory'
+import Card from './components/Card/Card'
+import * as jsonSource from './sources/cards.json';
 import { loadCards } from './slices/shopSlice';
 import { logout } from './slices/authSlice';
 import './App.css'
 import config from '../config';
-import { BrowserRouter,Routes,Route,NavLink} from "react-router-dom";
 import {io} from 'socket.io-client';
-import SocketContext from './SocketContext';
-import OpponentSelectionDisplay from './pages/OpponentSelectionDisplay'
-import CardDeck from './components/CardDeck/CardDeck';
-
+import GameArena from './components/Game/GameArena';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,29 +26,21 @@ function App() {
   const [selectedCards, setSelectedCards] = useState([]);
   const userCards = useSelector((state) => state.auth.userCards);
 
-  const [socket, setSocket] = useState(null);
-
-  /*useEffect(() => {
-      const socket = io()
-}, []);*/
-
   useEffect(() => {
-    const newSocket = io();
-    setSocket(newSocket);
-    return () => newSocket.close();
+      const socket = io()
   }, []);
 
-const socketProviderValue = useMemo(() => ({ socket }), [socket]);
+  const handleLoginClick = () => {
+      setShowLogin(true);
+      setShowSignup(false);
+      setShowButtons(false);
+    };
 
-
- const verifyLogin = () => {
-    console.log(isLoggedIn);
-
-    if(isLoggedIn){
-        return <InventoryDisplay/>;
-    }
-    return <FormDisplay/>;
- }
+  const handleSignupClick = () => {
+      setShowLogin(false);
+      setShowSignup(true);
+      setShowButtons(false);
+    };
 
  const handleGoBack = () => {
      setShowLogin(false);
@@ -116,26 +105,11 @@ const socketProviderValue = useMemo(() => ({ socket }), [socket]);
 
   
   return (
-    <SocketContext.Provider value={socketProviderValue}>
-          <BrowserRouter>
-                <div>
-                  <Routes>
-                      <Route path='/' element={verifyLogin()} />
-                      <Route path='/signup' element={<FormDisplay/>} />
-                      <Route path='/shop' element={<ShopDisplay/>} />
-                      <Route path='/login' element={<FormDisplay/>} />
-                      <Route path='/inventory' element={<InventoryDisplay/>} />
-                      <Route path='/opponents' element={<OpponentSelectionDisplay/>} />
-                      <Route path='/cardDeck' element={<CardDeck/>} />
-                  </Routes>
-                </div>
-          </BrowserRouter>
-    </SocketContext.Provider>
-  )
-}
-
-
-{/*
+    <>   
+          <h1>Welcome to G5's Card Shop!</h1>
+          <p className="read-the-docs">
+            Create your account and discover our endless inventory!
+          </p>
           <div className="main">
            {showButtons && (
            <>
@@ -183,11 +157,7 @@ const socketProviderValue = useMemo(() => ({ socket }), [socket]);
                 ? <button onClick={handleLoadInventory}>Shop</button>
                 : <button onClick={handleLoadInventory}>Inventory</button>
               }
-
-
             </div>
-          )}
-
             <div>
               <button onClick={handleStartGame}>Start Game!</button>
             </div>
@@ -205,6 +175,6 @@ const socketProviderValue = useMemo(() => ({ socket }), [socket]);
         )}
     </>
   )
-} */}
+}
 
-export default App;
+export default App

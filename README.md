@@ -90,6 +90,10 @@ Make sure NGINX is configured according to the requirements of the project, espe
 
 Once the application is running, you can access the various features through the web interface, such as user authentication, card buying/selling, and viewing card details.
 
+## Excalidraw
+
+https://excalidraw.com/#room=b380ed1c38d8a9db8307,FWb4z9wbfXCpVy3G7QjyZA
+
 
 
 

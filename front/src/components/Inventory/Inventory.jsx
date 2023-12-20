@@ -3,10 +3,11 @@ import { useState, useEffect  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from '../Card/Card';
 import config from '../../../config';
+import { setUserCards } from '../../slices/authSlice';
 
 const Inventory = () => {
-
-  const [userCards, setUserCards] = useState([]);
+  const dispatch = useDispatch();
+  const userCards = useSelector((state) => state.auth.userCards); 
   const currentUserId = useSelector((state) => state.auth.currentUserId);
 
   const getUserCards = async () => {
@@ -25,7 +26,7 @@ const Inventory = () => {
         }
       }
      
-      setUserCards(listUserCards);
+      dispatch(setUserCards(listUserCards));
       
     } catch (error) {
       console.error('Erreur lors de la récupération des données GET:', error);
@@ -33,9 +34,11 @@ const Inventory = () => {
   };
 
   useEffect(() => {
-    getUserCards()
-  }, []); // Le tableau vide signifie que useEffect ne s'exécutera qu'une fois, équivalent à componentDidMount
-
+    if (currentUserId) {
+      getUserCards();
+    }
+  }, [currentUserId, dispatch]);
+  
   const getCards = async (cardId) => {
     try {
       const response = await fetch(`${config.BASE_URL}/card/${cardId}`);

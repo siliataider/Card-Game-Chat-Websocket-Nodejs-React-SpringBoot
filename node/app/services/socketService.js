@@ -31,8 +31,17 @@ class SocketService {
     }
 
     startGame(data){
-        this.io.to(data.fromSocketID).emit('startGame');
-        this.io.to(data.toSocketID).emit('startGame');
+        this.io.to(data.fromSocketID).emit('startGame', data);
+        this.io.to(data.toSocketID).emit('startGame', data);
+    }
+
+    emitFightRequest(data){
+        this.io.to(data.toSocketID).emit('readyToFight??', data);
+    }
+
+    emitLetsGo(data){
+        this.io.to(data.toSocketID).emit('toArena', data);
+        this.io.to(data.fromSocketID).emit('toArena', data);
     }
 }
 

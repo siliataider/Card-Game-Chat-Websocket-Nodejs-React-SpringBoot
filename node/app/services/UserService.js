@@ -1,6 +1,5 @@
 class UserService {
     constructor() {
-        console.log("user service");
     }
 
     getAllUsers = async () => {

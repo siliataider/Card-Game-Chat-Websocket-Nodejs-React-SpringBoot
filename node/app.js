@@ -9,7 +9,7 @@ const server = app.listen(PORT, () => console.log(`Hello j'ai démarré sur le p
 const io = require('socket.io')(server)
 const socketController = new SocketController(io);
 
-app.use(express.static(path.join(__dirname,'public')))
+//app.use(express.static(path.join(__dirname,'public')))
 
 /*
 app.get('/get-sockets', (req, res) => {

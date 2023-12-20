@@ -112,7 +112,6 @@ function App() {
                       <Route path='/signup' element={<FormDisplay/>} />
                       <Route path='/login' element={<FormDisplay/>} />
                       <Route path='/inventory' element={<InventoryDisplay/>} />
-                      <Route path ='/shop' element = {<ShopDisplay/>}/>
 
                   </Routes>
                 </div>
@@ -123,7 +122,6 @@ function App() {
   )
 }
 
-export default App;
 
 {/*
           <div className="main">
@@ -177,8 +175,7 @@ export default App;
 
             </div>
           )}
-        */}
-            </div>
+
             <div>
               <button onClick={handleStartGame}>Start Game!</button>
             </div>
@@ -196,6 +193,6 @@ export default App;
         )}
     </>
   )
-}
+} */}
 
-export default App
+export default App;

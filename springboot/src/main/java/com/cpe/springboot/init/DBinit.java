@@ -1,7 +1,8 @@
-package com.cpe.springboot;
+package com.cpe.springboot.init;
 
 import com.cpe.springboot.card.Controller.CardRestController;
 import com.cpe.springboot.card.model.CardDTO;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Component;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
+
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -33,8 +36,10 @@ public class DBinit {
     private void postConstruct() throws IOException, ParseException {
 
     JSONParser parser = new JSONParser();
-    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("./src/main/resources/cards.json"));
 
+    ClassLoader classLoader = getClass().getClassLoader();
+    File file = new File(classLoader.getResource("cards.json").getFile());
+    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader( file.getPath() ));
 
     for (short i = 0; i < jsonArray.size(); i++){
         JSONObject element = (JSONObject) jsonArray.get(i);

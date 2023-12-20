@@ -1,18 +1,20 @@
 const SocketService = require('../services/socketService');
-const ChatService = require('../services/ChatService')
+const ChatService = require('../services/ChatService');
+const UserService = require('../services/UserService');
 
 class SocketController {
     constructor(io) {
         this.io = io;
         this.socketService = new SocketService(this.io);
         this.chatService = new ChatService(this.io);
+        this.userService = new UserService();
         this.setupSocketListeners();
     }
 
     setupSocketListeners() {
         this.io.on('connection', (socket) => {
             this.socketService.addSocket(socket.id);
-
+            this.userService.getAllUsers();
             socket.on('disconnect', () => {
                 this.socketService.removeSocket(socket.id);
             });

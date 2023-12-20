@@ -8,8 +8,8 @@ class SocketController {
         this.io = io;
         this.socketService = new SocketService(this.io);
         this.chatService = new ChatService(this.io);
-        this.combatService = new CombatService();
         this.userService = new UserService().getInstance();
+        this.combatService = new CombatService();
         this.setupSocketListeners();
     }
 
@@ -38,16 +38,21 @@ class SocketController {
                 console.log("i notified the chat service");
                 this.chatService.sendMessage(data);
             })
+
+            socket.on('toArena', (data) => {
+                this.combatService.setGameData(data);
+            })
+            socket.on('select-my-card', (card, userId) => {
+                this.combatService.isCardValid(card, userId);
+            })
             socket.on('end-turn', (data) => {
                 this.combatService.endTurn(data);
             })
-            socket.on('select-my-card', (data) => {
-                this.combatService.isCardValid(data);
-            })
+
             socket.on('select-opponent-card', (data) => {
                 this.combatService.combat(data);
             })
-
+  
             socket.on('getotherUsers', ()  => {
                 console.log("+++++++++++++++++++getotherUsers")
                 this.socketService.emitUpdatedSocketList();

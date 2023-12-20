@@ -5,7 +5,7 @@ import config from '../../../config';
 import SocketContext from '../../SocketContext';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import setOtherUsers from '../../slices/gameSlice'
+import { setcurrentSocketID, setcurrentID, setopponentSocketID, setopponentID, setSelectedCards, setopponentCards, setOtherUsers } from '../../slices/gameSlice'
  
 
 const OpponentList = () => {
@@ -17,13 +17,16 @@ const OpponentList = () => {
   const currentUserId = useSelector((state) => state.auth.currentUserId);
   const dispatch = useDispatch();
 
+  const [isSender, setIsSender] = useState(false);
+
   useEffect(() => {
     if (socket) {
-      socket.on('startGame', (users) => {
+      /*socket.on('startGame', (users) => {
         const otherUsers = users.filter(userId => userId !== socket.id);
         //setConnectedUsers(otherUsers);
         dispatch(setOtherUsers(otherUsers));
-      });
+      }
+      );*/
 
       socket.on('chatRequest', (data) => {
         console.log(`Receiving a request from: ${data.fromSocketID}`) 
@@ -50,8 +53,20 @@ const OpponentList = () => {
     };
   }, [socket]);
 
-  socket.on('startGame', () => {
-    console.log("+++++++++++++++++++ START GAME")
+  socket.on('startGame', (data) => {
+    if (isSender){
+      setIsSender(true);
+      dispatch(setcurrentSocketID(data.fromSocketID))
+      dispatch(setcurrentID(data.fromID))
+      dispatch(setopponentSocketID(data.toSocketID))
+      dispatch(setopponentID(data.toID))
+    }
+    else{
+      dispatch(setcurrentSocketID(data.toSocketID))
+      dispatch(setcurrentID(data.toID))
+      dispatch(setopponentSocketID(data.fromSocketID))
+      dispatch(setopponentID(data.fromID))
+    }
     navigate('/cardDeck');
   });
 
@@ -65,6 +80,7 @@ const OpponentList = () => {
       toID: null,
     }
     socket.emit('initiateChat', data);
+    setIsSender(true);
     //navigate('/cardDeck');
   };
 

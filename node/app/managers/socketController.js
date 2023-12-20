@@ -52,6 +52,15 @@ class SocketController {
                 console.log("+++++++++++++++++++getotherUsers")
                 this.socketService.emitUpdatedSocketList();
             })
+
+            socket.on('readyToFight?', (data)  => {
+                console.log("emitFightRequest", data)
+                this.socketService.emitFightRequest(data);
+            })
+
+            socket.on('letsGo', (data) => {
+                this.socketService.emitLetsGo(data);
+            })
             
         });
     }

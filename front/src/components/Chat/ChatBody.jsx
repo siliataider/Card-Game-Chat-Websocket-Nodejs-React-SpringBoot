@@ -4,7 +4,7 @@ import React, {useState, useRef, useCallback, useEffect} from 'react';
 import SocketContext from '../../SocketContext';
 
 
-const ChatBody = (props) => {
+const ChatBody = () => {
     console.log('chat Body')
     const { socket } = useContext(SocketContext);
 

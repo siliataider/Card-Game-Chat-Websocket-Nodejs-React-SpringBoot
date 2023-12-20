@@ -1,20 +1,20 @@
-import { useState, useEffect  } from 'react'
+import { useState, useEffect, useMemo  } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Shop from './components/Shop/Shop'
-import Inventory from './components/Inventory/Inventory'
-import Card from './components/Card/Card'
+
 import HubDisplay from './pages/HubDisplay'
 import FormDisplay from './pages/FormDisplay'
 import InventoryDisplay from './pages/InventoryDisplay'
 import ShopDisplay from './pages/ShopDisplay'
-import * as jsonSource from './sources/cards.json';
 import { loadCards } from './slices/shopSlice';
 import { logout } from './slices/authSlice';
 import './App.css'
 import config from '../config';
 import { BrowserRouter,Routes,Route,NavLink} from "react-router-dom";
 import {io} from 'socket.io-client';
-import GameArena from './components/Game/GameArena';
+import SocketContext from './SocketContext';
+import OpponentSelectionDisplay from './pages/OpponentSelectionDisplay'
+import CardDeck from './components/CardDeck/CardDeck';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -29,9 +29,19 @@ function App() {
   const [selectedCards, setSelectedCards] = useState([]);
   const userCards = useSelector((state) => state.auth.userCards);
 
-  useEffect(() => {
+  const [socket, setSocket] = useState(null);
+
+  /*useEffect(() => {
       const socket = io()
+}, []);*/
+
+  useEffect(() => {
+    const newSocket = io();
+    setSocket(newSocket);
+    return () => newSocket.close();
   }, []);
+
+const socketProviderValue = useMemo(() => ({ socket }), [socket]);
 
 
  const verifyLogin = () => {
@@ -62,7 +72,7 @@ function App() {
       return;
     }
     dispatch(setSelectedCards(selectedCards));
-    setGameOn(true);
+    setgameOn(true);
   };
 
 
@@ -99,97 +109,23 @@ function App() {
 
   
   return (
-    <>
+    <SocketContext.Provider value={socketProviderValue}>
           <BrowserRouter>
                 <div>
                   <Routes>
                       <Route path='/' element={verifyLogin()} />
                       <Route path='/signup' element={<FormDisplay/>} />
+                      <Route path='/shop' element={<ShopDisplay/>} />
                       <Route path='/login' element={<FormDisplay/>} />
                       <Route path='/inventory' element={<InventoryDisplay/>} />
-                      <Route path='/shop' element={<ShopDisplay/>} />
-
+                      <Route path='/opponents' element={<OpponentSelectionDisplay/>} />
+                      <Route path='/cardDeck' element={<CardDeck/>} />
                   </Routes>
                 </div>
-          </BrowserRouter>
-
-    </>
-
-
+          </BrowserRouter>          
+    </SocketContext.Provider>
   )
 }
 
-
-{/*
-          <div className="main">
-           {showButtons && (
-           <>
-            <div>
-              <button onClick={handleSignupClick}>Sign up</button>
-            </div>
-            <br></br>
-            <div>
-              <button onClick={handleLoginClick}>Log in</button>
-            </div>
-            </>
-            )}
-
-          {showLogin && (
-            <div>
-              <LoginForm/>
-              <br></br>
-              <button onClick={handleGoBack}>Go Back</button>
-            </div>
-          )}
-
-          {showSignup && (
-            <div>
-              <SignupForm/>
-              <br></br>
-              <button onClick={handleGoBack}>Go Back</button>
-            </div>
-          )}
-
-          {isLoggedIn && (
-            <div>
-              { loadShopOrInv
-                ? <Inventory />
-                : <Shop />
-              }
-              <br></br>
-              <button onClick={handleGoBack}>Log out</button>
-            </div>
-          )}
-        </div>
-        {isLoggedIn && (
-          <>
-            <div>
-              { loadShopOrInv
-                ? <button onClick={handleLoadInventory}>Shop</button>
-                : <button onClick={handleLoadInventory}>Inventory</button>
-              }
-
-
-            </div>
-          )}
-
-            <div>
-              <button onClick={handleStartGame}>Start Game!</button>
-            </div>
-          </>
-        )}
-        {gameOn && (
-          <>
-          <div>
-            <GameArena></GameArena>
-          </div>
-          <div>
-            <button onClick={handleEndGame}>End Game!</button>
-          </div>
-        </>
-        )}
-    </>
-  )
-} */}
 
 export default App;

@@ -20,10 +20,15 @@ const handleGoBack = () => {
     navigate('/');
 }
 
+const handlePickOpponent = () => {
+    navigate('/opponents');
+};
+
 return(
 
     <>
         <div>
+        <button onClick={handlePickOpponent}>Pick an Opponent</button>
             <Inventory/>
         </div>
         <button onClick={handleClickShop}>Shop</button>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../slices/authSlice';
 import config from '../../../config';
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [username_input, setUsername] = useState('');
@@ -9,6 +10,7 @@ const LoginForm = () => {
   const [error, setError] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const logUser = async (data) => {
     try {
@@ -27,6 +29,7 @@ const LoginForm = () => {
       const userId = await response.json();
       console.log("User ID: ", userId);
       dispatch(loginSuccess(userId));
+      navigate('/');
 
     } catch (error) {
       console.error('Error during POST request:', error);

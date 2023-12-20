@@ -26,14 +26,14 @@ const GameArena = () => {
                 <div className="ten wide column">
                     <div className="ui four column grid">
                     {/* Replace with your ShortCard React components */}
-                    {selectedCards.map((card) => (
+                    {/*selectedCards.map((card) => (
                         <Card key={card.id} card={card} showCardDetails={true} />
-                    ))}
+                    ))*/}
                     </div>
                 </div>
                 <div className="four wide column">
-                    {/* Replace with your FullCard React component for player 1 */}
-                    <Card />
+                    { /*<Card /> Replace with your FullCard React component for player 1 */}
+                    
                 </div>
                 </div>
             </div>
@@ -48,16 +48,16 @@ const GameArena = () => {
                 <div className="ten wide column">
                     <div className="ui four column grid">
                     {/* Replace with your ShortCard React components */}
-                    {[1, 2, 3, 4].map((_, index) => (
+                    {/*[1, 2, 3, 4].map((_, index) => (
                         <div key={index} className="column">
                         <Card />
                         </div>
-                    ))}
+                    ))*/}
                     </div>
                 </div>
                 <div className="four wide column">
-                    {/* Replace with your FullCard React component for player 2 */}
-                    <Card />
+                    {/*<Card />  Replace with your FullCard React component for player 2 */}
+                    
                 </div>
                 </div>
             </div>

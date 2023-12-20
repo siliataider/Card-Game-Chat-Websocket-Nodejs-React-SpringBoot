@@ -1,16 +1,21 @@
+const UserService = require('../services/UserService');
+
+
 class SocketService {
     constructor(io) {
         this.io = io;
         this.sockets = new Set();
+        this.userService = new UserService().getInstance();
     }
 
-    addSocket(socketId) {
+    async addSocket(socketId, userId) {
+        //let user = await this.userService.getUser(userId);
         this.sockets.add(socketId);
         this.emitUpdatedSocketList();
         console.log("addsocket")
     }
 
-    removeSocket(socketId) {
+    removeSocket(socketId, userId) {
         this.sockets.delete(socketId);
         this.emitUpdatedSocketList();
     }

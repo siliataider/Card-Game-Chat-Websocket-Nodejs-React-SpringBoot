@@ -24,7 +24,7 @@ const handleClickShop = () => {
 }
 
 const handleClickMatch = () => {
-    navigate('/match');
+    navigate('/opponents');
 }
 
 return(

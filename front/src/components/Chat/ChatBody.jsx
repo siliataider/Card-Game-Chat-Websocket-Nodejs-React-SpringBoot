@@ -1,9 +1,12 @@
 import Message from "./Message"
 import MessageObject from "./MessageObject";
 import React, {useState, useRef, useCallback, useEffect} from 'react';
+import SocketContext from '../../SocketContext';
+
 
 const ChatBody = (props) => {
     console.log('chat Body')
+    const { socket } = useContext(SocketContext);
 
     //Messages lists
     const [messageList, setMessageList] = useState([]);
@@ -12,12 +15,11 @@ const ChatBody = (props) => {
     const inputRef = useRef(null);
 
     //Socket binding  :
-    props.socket.on('message-received', onNewMessage);
+    socket.on('message-received', onNewMessage);
 
     //Used whene message are recived
 
     function onNewMessage(value){
-        console.log("+++")
         setMessageList(
         <>
             {messageList}
@@ -28,22 +30,18 @@ const ChatBody = (props) => {
 
     // Used to send message
     function sendMessage(){
-        console.log("erg")
         let message = new MessageObject()
 
-        console.log("jvg")
-
-        message.senderId = props.socket.id
+        message.senderId = socket.id
         message.message = inputRef.current.value
         message.time = new Date()
-        console.log(message)
-
-        props.socket.emit("message-sent", message)
+        
+        socket.emit("message-sent", message)
     }
 
     return (
         <>
-            <h2>Chat with : {props.name}</h2>
+            <h2>Chat :</h2>
 
             {messageList}
 

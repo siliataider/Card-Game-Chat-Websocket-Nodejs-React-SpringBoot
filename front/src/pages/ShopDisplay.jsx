@@ -17,7 +17,7 @@ const handleClickInventory = () => {
 }
 
 const handleGoBack = () => {
-    navigate('/login');
+    navigate('/');
 }
 
 return(

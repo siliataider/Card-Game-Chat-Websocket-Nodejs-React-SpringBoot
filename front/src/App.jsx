@@ -6,7 +6,7 @@ import FormDisplay from './pages/FormDisplay'
 import InventoryDisplay from './pages/InventoryDisplay'
 import ShopDisplay from './pages/ShopDisplay'
 import { loadCards } from './slices/shopSlice';
-import { logout } from './slices/authSlice';
+import { setCurrentUserSockerId } from './slices/authSlice';
 import './App.css'
 import config from '../config';
 import { BrowserRouter,Routes,Route,NavLink} from "react-router-dom";
@@ -14,6 +14,7 @@ import {io} from 'socket.io-client';
 import SocketContext from './SocketContext';
 import OpponentSelectionDisplay from './pages/OpponentSelectionDisplay'
 import CardDeck from './components/CardDeck/CardDeck';
+import { setOtherUsers } from './slices/gameSlice'
 
 
 function App() {
@@ -31,22 +32,33 @@ function App() {
 
   const [socket, setSocket] = useState(null);
 
-  /*useEffect(() => {
-      const socket = io()
-}, []);*/
-
   useEffect(() => {
-    const newSocket = io();
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, []);
+    if (isLoggedIn) {
+      const newSocket = io();
+  
+      newSocket.on('connect', () => {
+        console.log('Connected with socket ID:', newSocket.id);
+        dispatch(setCurrentUserSockerId(newSocket.id));
+        newSocket.emit('getotherUsers');
 
-const socketProviderValue = useMemo(() => ({ socket }), [socket]);
+        newSocket.on('socketListUpdate', (users) => {
+          const otherUsers = users.filter(userId => userId !== newSocket.id);
+          dispatch(setOtherUsers(otherUsers));
+        });
+
+      });
+  
+      setSocket(newSocket);
+      return () => newSocket.close();
+    }
+  }, [isLoggedIn]);
+  
+
+
+  const socketProviderValue = useMemo(() => ({ socket }), [socket]);
 
 
  const verifyLogin = () => {
-    console.log(isLoggedIn);
-
     if(isLoggedIn){
         return <HubDisplay/>;
     }

@@ -94,6 +94,8 @@ Once the application is running, you can access the various features through the
 
 https://excalidraw.com/#room=b380ed1c38d8a9db8307,FWb4z9wbfXCpVy3G7QjyZA
 
+![alt text](https://drive.google.com/uc?id=1xD3KpNjewd_z5TxSd9N5IIx5KWDjg-qd)
+
 
 
 

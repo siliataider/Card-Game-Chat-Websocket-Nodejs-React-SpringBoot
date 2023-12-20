@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSelectedCards } from '../../slices/gameSlice';
+import { setSelectedCards, setopponentCards } from '../../slices/gameSlice';
 import Card from '../Card/Card';
 import { getUserCards } from '../../assets/utility'
 import SocketContext from '../../SocketContext';
@@ -11,10 +11,19 @@ const CardDeck = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userCards = useSelector((state) => state.auth.userCards); 
-    const selectedCards = useSelector((state) => state.game.selectedCards);
     const currentUserId = useSelector((state) => state.auth.currentUserId);
     const { socket } = useContext(SocketContext);
 
+    const currentSocketID = useSelector((state) => state.game.currentSocketID);
+    const currentID = useSelector((state) => state.game.currentID);
+    const opponentSocketID = useSelector((state) => state.game.opponentSocketID);
+    const opponentID = useSelector((state) => state.game.opponentID);
+    const selectedCards = useSelector((state) => state.game.selectedCards);
+    const opponentCards = useSelector((state) => state.game.opponentCards);
+
+    const [isSender, setIsSender] = useState(false);
+
+    
     useEffect(() => {
         if (currentUserId) {
           getUserCards(dispatch, currentUserId);
@@ -35,20 +44,90 @@ const CardDeck = () => {
     const handleStartGame = () => {
         if (socket) {
             const data_to_fight = {
-                fromSocketID: data.fromSocketID,
-                fromID: data.fromID,
-                toSocketID: data.toSocketID,
-                toID: currentUserId,
+                fromSocketID: currentSocketID,
+                fromID: currentID,
+                toSocketID: opponentSocketID,
+                toID: opponentID,
+                fromCards: selectedCards,
+                toCards: opponentCards
             }
-            socket.emit("readyToFight", data)
+            console.log("+++++++ data_to_fight ", data_to_fight)
+            socket.emit("readyToFight?", data_to_fight)
+            setIsSender(true);
         }
         //navigate('/arena');
     }
 
-    socket.on('readyToFight', () => {
-        console.log("+++++++++++++++++++ readyToFight")
-        navigate('/cardDeck');
+    useEffect(() => {
+        if (socket) {
+          socket.on('readyToFight??', (data) => {
+            console.log("+++++++++++++++++++ readyToFight??") 
+            if (confirm('READY TO FIGHT?')) {
+                const data_to_fight = {
+                    fromSocketID: data.fromSocketID,
+                    fromID: data.fromID,
+                    toSocketID: data.toSocketID,
+                    toID: data.toID,
+                    fromCards: data.fromCards,
+                    toCards: selectedCards
+                }
+                dispatch(setopponentCards(data.fromCards));
+                socket.emit('letsGo', data_to_fight);
+            }
+            else{
+                console.log("Nah not interested")
+            }
+          });
+
+          socket.on('toArena', (data) => {
+            console.log("+++++++++++++++++++ toArena")
+            if (isSender){
+                dispatch(setopponentCards(data.toCards));
+                setIsSender(false);
+            }
+            navigate('/arena');
+        });
+        }
+    
+        return () => {
+          if (socket) {
+            socket.off('readyToFight??');
+            socket.off('toArena');
+          }
+        };
+    }, [socket]);
+
+    /*socket.on('readyToFight??', (data) => {
+        console.log("+++++++++++++++++++ readyToFight??")
+        if (confirm(`READY TO FIGHT?`)) {
+            const data_to_fight = {
+                fromSocketID: data.fromSocketID,
+                fromID: data.fromID,
+                toSocketID: data.toSocketID,
+                toID: data.toID,
+                fromCards: data.fromCards,
+                toCards: selectedCards
+            }
+            dispatch(setopponentCards(data.selectedCards));
+            socket.emit("letsGo", data_to_fight)
+        }
+        else{
+            console.log("Nah not yet")
+        }
+
+
     });
+    
+    socket.on('toArena', (data) => {
+        console.log("+++++++++++++++++++ toArena")
+        if (isSender){
+            dispatch(setopponentCards(data.toCards));
+            setIsSender(false);
+        }
+        //navigate('/cardDeck');
+    });
+    */
+    
 
     return (
         <div>

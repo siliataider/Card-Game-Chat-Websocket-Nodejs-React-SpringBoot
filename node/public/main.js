@@ -1,5 +1,4 @@
 const socket = io()
-console.log(socket)
 
 let opponentSocketId = null;
 const listElement = document.getElementById('socketList');
@@ -72,7 +71,6 @@ if (document.getElementById('message-container')){
             time: new Date().toLocaleString(),
             message: messageInput.value,
         }
-        console.log(data);
         socket.emit('message-sent', data);
         printMessage(data);
         messageInput.value = '';

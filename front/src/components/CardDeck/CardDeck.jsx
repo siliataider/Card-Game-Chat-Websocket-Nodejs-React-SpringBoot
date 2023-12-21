@@ -58,10 +58,10 @@ const CardDeck = () => {
         //navigate('/arena');
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         if (socket) {
-          socket.on('readyToFight??', (data) => {
-            console.log("+++++++++++++++++++ readyToFight??") 
+          socket.on('readyToFight??', (data) => {     
+            console.log("+++++++++++++++++++ readyToFight?? here are my cards ", selectedCards) 
             if (confirm('READY TO FIGHT?')) {
                 const data_to_fight = {
                     fromSocketID: data.fromSocketID,
@@ -72,6 +72,7 @@ const CardDeck = () => {
                     toCards: selectedCards
                 }
                 dispatch(setopponentCards(data.fromCards));
+                console.log("EMIT LETSGO", data_to_fight)
                 socket.emit('letsGo', data_to_fight);
             }
             else{
@@ -80,11 +81,12 @@ const CardDeck = () => {
           });
 
           socket.on('toArena', (data) => {
-            console.log("+++++++++++++++++++ toArena")
+            console.log("+++++++++++++++++++ on toArena ", data)
             if (isSender){
                 dispatch(setopponentCards(data.toCards));
                 setIsSender(false);
             }
+            socket.emit('set-combat-data', data)
             navigate('/arena');
         });
         }
@@ -95,7 +97,7 @@ const CardDeck = () => {
             socket.off('toArena');
           }
         };
-    }, [socket]);
+    }, [socket, selectedCards]);
 
     /*socket.on('readyToFight??', (data) => {
         console.log("+++++++++++++++++++ readyToFight??")

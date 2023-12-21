@@ -80,7 +80,7 @@ const Inventory = () => {
   
       const purchaseSuccess = await response.json();
       if (purchaseSuccess) {
-        await getUserCards()
+        await getUserCards(dispatch, currentUserId)
         alert(`Successfully sell with ID: ${currentCard.id}`);
       } else {
         alert('Failed to sell card. Please try again.');

@@ -3,7 +3,6 @@ const UserService = require('../services/UserService');
 class CombatService {
     constructor() {
         this.gameData = {}
-        this.userIDs = []
         this.userService = new UserService().getInstance();
     }
 
@@ -16,25 +15,30 @@ class CombatService {
         this.gameData[data.fromID] = {
             socketId: data.fromSocketID,
             energy: 100.0,
-            cardList: data.fromCards
+            cardList: data.fromCards,
+            yourTurn: true,
+            opponentId: data.toID,
+            opponentSocketId: data.toSocketID
         }
         this.gameData[data.toID] = {
             socketId: data.toSocketID,
             energy: 100.0, 
-            cardList: data.toCards
+            cardList: data.toCards,
+            yourTurn: false,
+            opponentId: data.fromID,
+            opponentSocketId: data.fromSocketID
         }
-        this.userIDs = [data.fromID, data.toID]
     }
     /**
      * 
-     * data: {userId, userOpponentId, card, cardOpponent}
+     * data: {userId, card, cardOpponent}
      */
     combat = async (data) =>  {
-        let isCardExist = this.isCardExist(data.cardOpponent, data.userOpponentId)
+        let isCardExist = this.isCardExist(data.cardOpponent, this.gameData[data.userId].opponentId)
         if (isCardExist) {
             let hp_final = data.cardOpponent.hp - data.card.attack
             if (hp_final<=0) {
-                this.destroyCard(userOpponentId, cardOpponent);
+                this.destroyCard(this.gameData[data.userId].opponentId, data.cardOpponent);
             }
             this.gameData[data.userId].cardList.find(card => card.id === data.card.id).hp = hp_final;
             this.gameData[data.userId].energy -= data.card.energy 
@@ -46,19 +50,20 @@ class CombatService {
     }
 
     destroyCard(userOpponentId, card) {
-        var index = this.cardsList[userOpponentId].indexOf(card);
+        var index = this.gameData[userOpponentId].cardsList.indexOf(card);
 
         if (index !== -1) {
-            this.cardsList[userOpponentId].splice(index, 1);
+            this.gameData[userOpponentId].cardsList.splice(index, 1);
         }
         this.loadTerrain()
     }
 
     isCombatFinish = async (data) =>  {
-        if (data[userOpponentId].cardsList.length == 0) {
+        let opponentId = this.gameData[data.userId].opponentId
+        if (this.gameData[opponentId].cardsList.length == 0) {
             // Le gagnant sera toujours celui dont s'est le tour active, càd le sender actuelle de la requete
-            this.io.to(this.gameData[userId].socketId).emit('turn-info', "You loose")
-            this.io.to(this.gameData[userOpponentId].socketId).emit('turn-info', "You Win")
+            this.io.to(this.gameData[data.userId].socketId).emit('turn-info', "You loose")
+            this.io.to(this.gameData[data.userId].opponentSocketId).emit('turn-info', "You Win")
             await this.calculPrice(data);
         }  
     }
@@ -72,9 +77,9 @@ class CombatService {
     isCardValid(card, userId) {
         let cardExists = this.isCardExist(card, userId)
         if (cardExists) {
-            if (card.energy > gameData[userId].energy) {
+            if (card.energy > this.gameData[userId].energy) {
                 let info = {message: "Pas assez d'énergie."}
-                this.io.to(gameData[userId].socketId).emit('info-combat', info)
+                this.io.to(this.gameData[userId].socketId).emit('info-combat', info)
             }
         }
     }
@@ -93,18 +98,16 @@ class CombatService {
         if (this.gameData[userId].energy <= 0) {
             this.endTurn(userId)
             // Reload energy and add to the remain one
-            this.userEnergy += 100.0
+            this.gameData[userId].energy += 100.0
         }
     }
 
 
     endTurn(userId) {
-        this.io.to(gameData[userId].socketId).emit('turn-info', false)
-        for (id of this.userIDs) {
-            if (id != userId) {
-                this.io.to(gameData[id].socketId).emit('turn-info', true)
-            }
-        }
+        this.gameData[userId].yourTurn = false
+        let opponentId = this.gameData[userId].opponentId
+        this.gameData[opponentId].yourTurn = true
+        this.loadTerrain()
     }
 
 }

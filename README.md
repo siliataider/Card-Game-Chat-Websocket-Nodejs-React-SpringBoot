@@ -1,43 +1,49 @@
-# 🃏 Card Management System - ASI2
+# 🃏 Card Game
 
 ## 📝 Description
 
-The Card Management System is our attempt to transition a web application with a monolithic backend architecture to a Service-Oriented Architecture (SOA). 
-This project showcases different software architectural concepts such as MVC, SOA, and Communication Buses.
-Using technologies like ActiveMQ, SpringBoot, Maven, React and JavaScript, this application offers basic user authentication, a Shop, an Inventory and the capability to buy and sell cards. It also includes an independent module in SpringBoot for updating user properties through a communication bus.
+G5 Card Game is a robust web application showcasing a seamless integration of a card game with real-time chat capabilities. This project, an evolution of the [Card Management System](https://github.com/siliataider/ASI-atelier1-react-node-springboot), now features an interactive gaming arena and a live chat module, providing a more engaging user experience. It demonstrates advanced software architectural concepts such as real-time communication, SOA, and event-driven architecture, leveraging technologies like Socket.IO, React, Redux, and Node.js.
 
 ## 🛠️ Technology Stack
 
-![JSX](https://img.shields.io/badge/Code-JSX-orange)
 ![React](https://img.shields.io/badge/Frontend-React-blue)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-green)
+![Socket.IO](https://img.shields.io/badge/Real_Time-Socket.IO-red)
+![JSX](https://img.shields.io/badge/Code-JSX-orange)
 ![Redux](https://img.shields.io/badge/State_Management-Redux-purple)
 ![SpringBoot](https://img.shields.io/badge/Backend-SpringBoot-green)
 ![ActiveMQ](https://img.shields.io/badge/Messaging-ActiveMQ-red)
 ![Maven](https://img.shields.io/badge/Build_Tool-Maven-orange)
 ![Vite](https://img.shields.io/badge/Build_Tool-Vite-brightgreen)
 
+
 ## 🌟 Features
 
 - **🔐 User Authentication:** Enables users to securely log in and sign up.
+- **💬 Real-Time Chat:** Enables users to chat live with other players.
+- **🎮 Interactive Gaming Arena:** Provides a dynamic card game experience.
+- **⚙️ Event-Driven Architecture:** Utilizes Socket.IO for real-time communication.
 - **💳 Card Transactions:** Allows users to buy and sell cards.
 - **👥 User Interactivity:** Provides a dynamic user interface with React for an engaging experience.
-- **⚙️ SOA Transition:** Showcases the transformation from a monolithic architecture to SOA.
 - **📡 Communication Bus:** Utilizes ActiveMQ for efficient message handling.
+
 
 ## 💻 Front-End Development
 
-- **👥 Collaborators:** [@siliataider](https://github.com/siliataider), [@Eliott-rjd](https://github.com/Eliott-rjd)
+- **👥 Collaborators:** [@siliataider](https://github.com/siliataider), [@Eliott-rjd](https://github.com/Eliott-rjd), [@merMorty](https://github.com/merMorty), [@JadGhandour](https://github.com/JadGhandour)
 - **📋 Responsibilities:** 
   - Development of interactive UI components using React.
+  - - Implementing real-time chat and game features using Socket.IO.
   - State management using Redux.
-  - Integration with backend APIs for authentication, card transactions, and user management.
+  - Integration with backend APIs for authentication, card transactions, and game management.
   - Styling with Semantic-UI + Bootstrap for a responsive and modern design.
-
+ 
 ## 💻 Back-End Development
 
-- **👥 Collaborators:** [@merMorty](https://github.com/merMorty), [@JadGhandour](https://github.com/JadGhandour)
-- **📋 Responsibilities:** 
-  - Developing RESTful services for user management.
+- **👥 Collaborators:** [@merMorty](https://github.com/merMorty), [@siliataider](https://github.com/siliataider), [@Eliott-rjd](https://github.com/Eliott-rjd), [@JadGhandour](https://github.com/JadGhandour)
+- **📋 Responsibilities:**  
+  - Building RESTful services and real-time communication with Node.js and Socket.IO.
+  - Implementing game logic and user management.
   - Integration with ActiveMQ for messaging and event handling.
 
 ## 🚀 Getting Started
@@ -62,21 +68,15 @@ Before you begin, ensure you have the following installed:
   cd ASI-atelier1-react-node-springboot
   ```
 2. **🔄 Start the Reverse Proxy:**
-  Navigate to the directory containing the `reverse-proxy.sh` script and run it to set up NGINX as a reverse proxy:
+  Navigate to the directory containing the `launcher.sh` script and run it to set up NGINX as a reverse proxy, to launch the node backend, the react front end, and the activemq container:
   ```bash
-  ./reverse-proxy.sh
+  bash ./launcher.sh
   ```
 3. **🌱 Launch the SpringBoot Application:**
   Open the backend project in your IDE and start the SpringBoot application. 
-4. **🎨 Set Up and Run the Front-End Application:**
-  Navigate to the front-end directory, install dependencies, and start the development server:
-  ```bash
-  cd front
-  npm install
-  npm run dev
-  ```
+
 5. **🌐 Access the Application:**
-The application should now be running and accessible at [http://localhost:5173/](http://localhost:5173/).
+The application should now be running and accessible at [http://localhost:5173/](http://localhost:80/).
 
 ### ActiveMQ Configuration
 
@@ -88,7 +88,7 @@ Make sure NGINX is configured according to the requirements of the project, espe
 
 ## Usage
 
-Once the application is running, you can access the various features through the web interface, such as user authentication, card buying/selling, and viewing card details.
+Once the application is running, you can access the various features through the web interface, such as user authentication, card buying/selling, starting a game, picking your opponent, selecting the cards you want to play with, chatting and attacking your opponent, etc.
 
 ## Excalidraw
 

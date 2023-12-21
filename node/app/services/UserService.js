@@ -41,7 +41,6 @@ class UserService {
               throw new Error(`Failed to update user ${user.login}`);
           }
           const users = await response.json();
-          console.log(users);
       } catch (error) {
           console.error("Erreur lors de l'update de l'utilisateur:", error);
       }

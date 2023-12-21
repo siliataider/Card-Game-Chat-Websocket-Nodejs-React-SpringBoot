@@ -9,7 +9,7 @@ class SocketController {
         this.socketService = new SocketService(this.io);
         this.chatService = new ChatService(this.io);
         this.userService = new UserService().getInstance();
-        this.combatService = new CombatService();
+        this.combatService = new CombatService(this.io);
         this.setupSocketListeners();
     }
 
@@ -39,9 +39,6 @@ class SocketController {
                 this.chatService.sendMessage(data);
             })
 
-            socket.on('toArena', (data) => {
-                this.combatService.setGameData(data);
-            })
             socket.on('select-my-card', (card, userId) => {
                 this.combatService.isCardValid(card, userId);
             })
@@ -59,12 +56,14 @@ class SocketController {
             })
 
             socket.on('readyToFight?', (data)  => {
-                console.log("emitFightRequest", data)
                 this.socketService.emitFightRequest(data);
             })
 
             socket.on('letsGo', (data) => {
                 this.socketService.emitLetsGo(data);
+            })
+            socket.on('set-combat-data', (data) => {
+                this.combatService.setGameData(data);
             })
             
         });

@@ -33,7 +33,7 @@ G5 Card Game is a robust web application showcasing a seamless integration of a 
 - **👥 Collaborators:** [@siliataider](https://github.com/siliataider), [@Eliott-rjd](https://github.com/Eliott-rjd), [@merMorty](https://github.com/merMorty), [@JadGhandour](https://github.com/JadGhandour)
 - **📋 Responsibilities:** 
   - Development of interactive UI components using React.
-  - - Implementing real-time chat and game features using Socket.IO.
+  - Implementing real-time chat and game features using Socket.IO.
   - State management using Redux.
   - Integration with backend APIs for authentication, card transactions, and game management.
   - Styling with Semantic-UI + Bootstrap for a responsive and modern design.
@@ -76,7 +76,7 @@ Before you begin, ensure you have the following installed:
   Open the backend project in your IDE and start the SpringBoot application. 
 
 5. **🌐 Access the Application:**
-The application should now be running and accessible at [http://localhost:5173/](http://localhost:80/).
+The application should now be running and accessible at [http://localhost:80/](http://localhost:80/).
 
 ### ActiveMQ Configuration
 
